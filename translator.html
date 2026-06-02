@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Translator • Polyglot Path</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #cfe9ff; /* pastel blue */
+}
+
+#app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Back button (optional, matches index) */
+.back-btn {
+  display: inline-block;
+  padding: 10px 18px;
+  background: white;
+  border-radius: 50px;
+  text-decoration: none;
+  color: #003b6f;
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  margin-bottom: 10px;
+}
+
+/* Translator card */
+.translator {
+  background: #e8f4ff;          /* soft pastel blue */
+  border: 2px solid #8bd3ff;    /* brighter blue border */
+  padding: 25px;
+  margin: 20px 0;
+  border-radius: 20px;
+}
+
+.translator-inner {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #cfe9ff;
+}
+
+h2 {
+  margin-top: 0;
+  color: #003b6f;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+label {
+  font-weight: 600;
+  color: #003b6f;
+}
+
+input, select, button, textarea {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Translate button */
+button#translateBtn {
+  background: #8bd3ff;          /* bright pastel blue */
+  color: #003b6f;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,0.12);
+}
+
+/* Output area */
+#output {
+  min-height: 80px;
+  background: #f1f5f9;
+}
+
+/* Notebook */
+.notebook {
+  background: #fff4b8;          /* pastel yellow */
+  border: 2px solid #ffd27f;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 15px;
+}
+
+#notes {
+  min-height: 150px;
+  padding: 10px;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  font-size: 14px;
+}
+
+/* Clear button */
+.clear-btn {
+  background: #ffd27f;
+  border: none;
+  color: #5b3b00;
+  padding: 10px 16px;
+  border-radius: 10px;
+  margin-top: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(0,0,0,0.12);
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+  <a href="index.html" class="back-btn">⬅ Back</a>
+
+  <div class="translator">
+    <h2>🌐 Translator</h2>
+
+    <div class="translator-inner">
+
+      <div class="row">
+        <label>Text to translate:</label>
+        <textarea id="inputText" rows="3" placeholder="Type here..."></textarea>
+      </div>
+
+      <div class="row">
+        <label>From language:</label>
+        <select id="fromLang"></select>
+      </div>
+
+      <div class="row">
+        <label>To language:</label>
+        <select id="toLang"></select>
+      </div>
+
+      <div class="row">
+        <button id="translateBtn">Translate</button>
+      </div>
+
+      <div class="row">
+        <label>Result:</label>
+        <textarea id="output" readonly></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="notebook">
+    <h2>Notebook</h2>
+    <div id="notes"></div>
+    <button id="clearNotesBtn" class="clear-btn">Clear All</button>
+  </div>
+
+</div>
+
+<script>
+// Base languages (one per language)
+const baseLanguages = [
+  { code: "en", name: "English" },
+  { code: "es", name: "Spanish" },
+  { code: "fr", name: "French" },
+  { code: "de", name: "German" },
+  { code: "it", name: "Italian" },
+  { code: "pt", name: "Portuguese" },
+  { code: "ru", name: "Russian" },
+  { code: "uk", name: "Ukrainian" },
+  { code: "nl", name: "Dutch" },
+  { code: "sv", name: "Swedish" },
+  { code: "no", name: "Norwegian" },
+  { code: "da", name: "Danish" },
+  { code: "fi", name: "Finnish" },
+  { code: "pl", name: "Polish" },
+  { code: "cs", name: "Czech" },
+  { code: "sk", name: "Slovak" },
+  { code: "sl", name: "Slovenian" },
+  { code: "hr", name: "Croatian" },
+  { code: "sr", name: "Serbian" },
+  { code: "ro", name: "Romanian" },
+  { code: "bg", name: "Bulgarian" },
+  { code: "hu", name: "Hungarian" },
+  { code: "el", name: "Greek" },
+  { code: "tr", name: "Turkish" },
+  { code: "ar", name: "Arabic" },
+  { code: "he", name: "Hebrew" },
+  { code: "fa", name: "Persian" },
+  { code: "hi", name: "Hindi" },
+  { code: "bn", name: "Bengali" },
+  { code: "ta", name: "Tamil" },
+  { code: "te", name: "Telugu" },
+  { code: "ml", name: "Malayalam" },
+  { code: "mr", name: "Marathi" },
+  { code: "gu", name: "Gujarati" },
+  { code: "pa", name: "Punjabi" },
+  { code: "ur", name: "Urdu" },
+  { code: "zh", name: "Chinese" },
+  { code: "ja", name: "Japanese" },
+  { code: "ko", name: "Korean" },
+  { code: "th", name: "Thai" },
+  { code: "vi", name: "Vietnamese" },
+  { code: "id", name: "Indonesian" },
+  { code: "ms", name: "Malay" },
+  { code: "sw", name: "Swahili" },
+  { code: "af", name: "Afrikaans" },
+  { code: "zu", name: "Zulu" },
+  { code: "xh", name: "Xhosa" },
+  { code: "am", name: "Amharic" },
+  { code: "et", name: "Estonian" },
+  { code: "lv", name: "Latvian" },
+  { code: "lt", name: "Lithuanian" },
+  { code: "is", name: "Icelandic" },
+  { code: "ga", name: "Irish" },
+  { code: "cy", name: "Welsh" },
+  { code: "mt", name: "Maltese" },
+  { code: "sq", name: "Albanian" },
+  { code: "mk", name: "Macedonian" },
+  { code: "bs", name: "Bosnian" },
+  { code: "kk", name: "Kazakh" },
+  { code: "uz", name: "Uzbek" },
+  { code: "az", name: "Azerbaijani" },
+  { code: "ka", name: "Georgian" },
+  { code: "hy", name: "Armenian" },
+  { code: "yo", name: "Yoruba" },
+  { code: "ig", name: "Igbo" },
+  { code: "ha", name: "Hausa" }
+];
+
+// Regions / variants with flags + labels
+const regions = [
+  { suffix: "", label: "Standard", flag: "🌐" },
+
+  // English variants
+  { suffix: "-US", label: "United States", flag: "🇺🇸", base: "en" },
+  { suffix: "-GB", label: "United Kingdom", flag: "🇬🇧", base: "en" },
+  { suffix: "-AU", label: "Australia", flag: "🇦🇺", base: "en" },
+  { suffix: "-CA", label: "Canada", flag: "🇨🇦", base: "en" },
+  { suffix: "-IN", label: "India", flag: "🇮🇳", base: "en" },
+
+  // Spanish variants
+  { suffix: "-ES", label: "Spain", flag: "🇪🇸", base: "es" },
+  { suffix: "-MX", label: "Mexico", flag: "🇲🇽", base: "es" },
+  { suffix: "-AR", label: "Argentina", flag: "🇦🇷", base: "es" },
+  { suffix: "-CO", label: "Colombia", flag: "🇨🇴", base: "es" },
+
+  // Portuguese variants
+  { suffix: "-PT", label: "Portugal", flag: "🇵🇹", base: "pt" },
+  { suffix: "-BR", label: "Brazil", flag: "🇧🇷", base: "pt" },
+
+  // French variants
+  { suffix: "-FR", label: "France", flag: "🇫🇷", base: "fr" },
+  { suffix: "-CA", label: "Canada", flag: "🇨🇦", base: "fr" },
+
+  // Chinese variants
+  { suffix: "-CN", label: "Simplified (China)", flag: "🇨🇳", base: "zh" },
+  { suffix: "-TW", label: "Traditional (Taiwan)", flag: "🇹🇼", base: "zh" },
+
+  // Arabic variants
+  { suffix: "-SA", label: "Saudi Arabia", flag: "🇸🇦", base: "ar" },
+  { suffix: "-EG", label: "Egypt", flag: "🇪🇬", base: "ar" },
+  { suffix: "-AE", label: "United Arab Emirates", flag: "🇦🇪", base: "ar" },
+
+  // German variants
+  { suffix: "-DE", label: "Germany", flag: "🇩🇪", base: "de" },
+  { suffix: "-AT", label: "Austria", flag: "🇦🇹", base: "de" },
+  { suffix: "-CH", label: "Switzerland", flag: "🇨🇭", base: "de" },
+
+  // Italian
+  { suffix: "-IT", label: "Italy", flag: "🇮🇹", base: "it" },
+
+  // Russian
+  { suffix: "-RU", label: "Russia", flag: "🇷🇺", base: "ru" },
+
+  // Hindi
+  { suffix: "-IN", label: "India", flag: "🇮🇳", base: "hi" },
+
+  // Japanese
+  { suffix: "-JP", label: "Japan", flag: "🇯🇵", base: "ja" },
+
+  // Korean
+  { suffix: "-KR", label: "South Korea", flag: "🇰🇷", base: "ko" }
+];
+
+// Build full language list with variants + full names
+const languages = [];
+
+baseLanguages.forEach(base => {
+  // Find all region definitions for this base language
+  const baseRegions = regions.filter(r => r.base === base.code);
+
+  if (baseRegions.length === 0) {
+    // No specific variants → single generic entry
+    languages.push({
+      code: base.code,
+      label: `${base.name} (Standard)`,
+      flag: "🌐"
+    });
+  } else {
+    // Create one entry per region
+    baseRegions.forEach(r => {
+      languages.push({
+        code: base.code + r.suffix,
+        label: `${base.name} (${r.label})`,
+        flag: r.flag
+      });
+    });
+  }
+});
+
+// Populate dropdowns
+const fromSel = document.getElementById("fromLang");
+const toSel = document.getElementById("toLang");
+
+languages.forEach(lang => {
+  const opt1 = document.createElement("option");
+  opt1.value = lang.code;
+  opt1.textContent = `${lang.flag} ${lang.label}`;
+  fromSel.appendChild(opt1);
+
+  const opt2 = document.createElement("option");
+  opt2.value = lang.code;
+  opt2.textContent = `${lang.flag} ${lang.label}`;
+  toSel.appendChild(opt2);
+});
+
+// Default languages
+fromSel.value = "en-US";
+toSel.value = "es-ES";
+
+// Translation function (MyMemory)
+async function translate(text, from, to) {
+  // MyMemory prefers base codes; strip region if present
+  const fromBase = from.split("-")[0];
+  const toBase = to.split("-")[0];
+
+  const url =
+    "https://api.mymemory.translated.net/get?q=" +
+    encodeURIComponent(text) +
+    "&langpair=" +
+    fromBase +
+    "|" +
+    toBase;
+
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.responseData?.translatedText || "";
+}
+
+// Load notebook from localStorage
+window.onload = () => {
+  const saved = localStorage.getItem("notes");
+  if (saved) document.getElementById("notes").innerHTML = saved;
+};
+
+document.getElementById("translateBtn").onclick = async () => {
+  const text = document.getElementById("inputText").value.trim();
+  const from = fromSel.value;
+  const to = toSel.value;
+
+  if (!text) return;
+
+  document.getElementById("output").value = "Translating...";
+
+  try {
+    const result = await translate(text, from, to);
+    document.getElementById("output").value = result;
+
+    // Save to notebook
+    const notes = document.getElementById("notes");
+    const entry = document.createElement("div");
+    entry.textContent = `${text} → ${result}`;
+    notes.appendChild(entry);
+    localStorage.setItem("notes", notes.innerHTML);
+
+  } catch (e) {
+    document.getElementById("output").value = "Error. Try again.";
+  }
+};
+
+document.getElementById("clearNotesBtn").onclick = () => {
+  document.getElementById("notes").innerHTML = "";
+  localStorage.removeItem("notes");
+};
+</script>
+
+</body>
+</html>
