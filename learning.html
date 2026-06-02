@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Learning Place • Polyglot Path</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #cfe9ff; /* pastel blue */
+}
+
+#app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Back button */
+.back-btn {
+  display: inline-block;
+  padding: 10px 18px;
+  background: white;
+  border-radius: 50px;
+  text-decoration: none;
+  color: #003b6f;
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  margin-bottom: 10px;
+}
+
+/* Main card */
+.learning-box {
+  background: #fff4b8;          /* pastel yellow */
+  border: 2px solid #ffd27f;
+  padding: 25px;
+  margin: 20px 0;
+  border-radius: 20px;
+}
+
+.learning-inner {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #ffe9a8;
+}
+
+h2 {
+  margin-top: 0;
+  color: #003b6f;
+}
+
+/* Language selection */
+.lang-select-section {
+  background: #e8f4ff;
+  border: 1px solid #8bd3ff;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.lang-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-height: 150px;
+  overflow-y: auto;
+  margin-top: 8px;
+}
+
+.lang-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+
+.lang-item input {
+  margin: 0;
+}
+
+/* Selected flags */
+.selected-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.flag-chip {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #cfe9ff;
+  border: 1px solid #8bd3ff;
+  font-size: 0.9rem;
+}
+
+/* Native language */
+.native-select {
+  margin-top: 10px;
+}
+
+/* Learning paths */
+.path-section {
+  background: #e8f4ff;
+  border: 1px solid #8bd3ff;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.path-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.level-badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #8bd3ff;
+  color: #003b6f;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+  resize: vertical;
+  font-family: inherit;
+  margin-top: 10px;
+}
+
+/* Buttons */
+.path-btn {
+  background: #8bd3ff;
+  border: none;
+  color: #003b6f;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.12);
+}
+
+/* Notebook */
+.notebook {
+  background: #fff4b8;
+  border: 2px solid #ffd27f;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 15px;
+}
+
+#notebookInput {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  font-size: 1rem;
+  resize: vertical;
+  font-family: inherit;
+}
+
+#notebookEntries {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 12px;
+  border-radius: 12px;
+  min-height: 120px;
+  margin-top: 15px;
+  font-size: 0.95rem;
+}
+
+.save-btn {
+  background: #8bd3ff;
+  border: none;
+  color: #003b6f;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.12);
+}
+
+.clear-btn {
+  background: #ffd27f;
+  border: none;
+  color: #5b3b00;
+  padding: 10px 16px;
+  border-radius: 10px;
+  margin-top: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(0,0,0,0.12);
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+  <a href="index.html" class="back-btn">⬅ Back</a>
+
+  <div class="learning-box">
+    <h2>📚 Learning Place</h2>
+
+    <div class="learning-inner">
+
+      <!-- Language selection -->
+      <div class="lang-select-section">
+        <h3 style="margin-top:0;">Choose your languages</h3>
+        <p style="margin:0;font-size:0.95rem;">
+          Pick as many target languages as you want. They will appear as flags on top.
+        </p>
+
+        <div class="lang-list" id="langList"></div>
+
+        <div class="native-select">
+          <label for="nativeLang"><strong>Native language (for explanations):</strong></label>
+          <select id="nativeLang"></select>
+        </div>
+
+        <div style="margin-top:10px;font-weight:600;color:#003b6f;">Your chosen languages:</div>
+        <div class="selected-flags" id="selectedFlags"></div>
+      </div>
+
+      <!-- Vocabulary path -->
+      <div class="path-section">
+        <div class="path-header">
+          <h3 style="margin:0;">Vocabulary Path</h3>
+          <div class="level-badge" id="vocabLevelBadge">Level 1 • Beginner</div>
+        </div>
+        <p style="font-size:0.9rem;margin-top:6px;">
+          Learn words and phrases, and how to use them correctly. When you finish today, mark it as complete to move to the next level.
+        </p>
+        <textarea id="vocabNotes" rows="3" placeholder="Write today's vocabulary, phrases, and usage examples..."></textarea>
+        <button class="path-btn" onclick="completeVocabDay()">✅ Mark vocabulary day as done</button>
+      </div>
+
+      <!-- Grammar path -->
+      <div class="path-section">
+        <div class="path-header">
+          <h3 style="margin:0;">Grammar Path</h3>
+          <div class="level-badge" id="grammarLevelBadge">Level 1 • Beginner</div>
+        </div>
+        <p style="font-size:0.9rem;margin-top:6px;">
+          Learn grammar rules, patterns, and how they work. When you finish today, mark it as complete to move to the next level.
+        </p>
+        <textarea id="grammarNotes" rows="3" placeholder="Write today's grammar rules, patterns, and examples..."></textarea>
+        <button class="path-btn" onclick="completeGrammarDay()">✅ Mark grammar day as done</button>
+      </div>
+
+      <!-- Notebook -->
+      <div class="notebook">
+        <h3 style="margin-top:0;color:#003b6f;">Notebook • Your full learning space</h3>
+        <p style="font-size:0.9rem;margin-top:0;">
+          Write all the words, grammar, ideas, and anything else you learn here.
+        </p>
+        <textarea id="notebookInput" rows="3" placeholder="Write anything you want to remember..."></textarea>
+        <button class="save-btn" onclick="saveNotebookEntry()">Save to notebook</button>
+        <div id="notebookEntries"></div>
+        <button class="clear-btn" onclick="clearNotebook()">Clear notebook</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Languages with flags (you can add more if you want)
+const languageOptions = [
+  { code: "en", name: "English", flag: "🇬🇧" },
+  { code: "es", name: "Spanish", flag: "🇪🇸" },
+  { code: "fr", name: "French", flag: "🇫🇷" },
+  { code: "de", name: "German", flag: "🇩🇪" },
+  { code: "it", name: "Italian", flag: "🇮🇹" },
+  { code: "pt", name: "Portuguese", flag: "🇵🇹" },
+  { code: "ru", name: "Russian", flag: "🇷🇺" },
+  { code: "uk", name: "Ukrainian", flag: "🇺🇦" },
+  { code: "nl", name: "Dutch", flag: "🇳🇱" },
+  { code: "sv", name: "Swedish", flag: "🇸🇪" },
+  { code: "no", name: "Norwegian", flag: "🇳🇴" },
+  { code: "da", name: "Danish", flag: "🇩🇰" },
+  { code: "fi", name: "Finnish", flag: "🇫🇮" },
+  { code: "pl", name: "Polish", flag: "🇵🇱" },
+  { code: "cs", name: "Czech", flag: "🇨🇿" },
+  { code: "sk", name: "Slovak", flag: "🇸🇰" },
+  { code: "el", name: "Greek", flag: "🇬🇷" },
+  { code: "tr", name: "Turkish", flag: "🇹🇷" },
+  { code: "ar", name: "Arabic", flag: "🇸🇦" },
+  { code: "he", name: "Hebrew", flag: "🇮🇱" },
+  { code: "hi", name: "Hindi", flag: "🇮🇳" },
+  { code: "zh", name: "Chinese", flag: "🇨🇳" },
+  { code: "ja", name: "Japanese", flag: "🇯🇵" },
+  { code: "ko", name: "Korean", flag: "🇰🇷" },
+  { code: "th", name: "Thai", flag: "🇹🇭" },
+  { code: "vi", name: "Vietnamese", flag: "🇻🇳" },
+  { code: "id", name: "Indonesian", flag: "🇮🇩" },
+  { code: "ms", name: "Malay", flag: "🇲🇾" },
+  { code: "sw", name: "Swahili", flag: "🇰🇪" },
+  { code: "af", name: "Afrikaans", flag: "🇿🇦" }
+];
+
+const langList = document.getElementById("langList");
+const selectedFlags = document.getElementById("selectedFlags");
+const nativeLangSelect = document.getElementById("nativeLang");
+
+// Populate language checkboxes + native language dropdown
+languageOptions.forEach(lang => {
+  // Checkbox list
+  const wrapper = document.createElement("label");
+  wrapper.className = "lang-item";
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.value = lang.code;
+  checkbox.addEventListener("change", updateSelectedFlags);
+
+  const span = document.createElement("span");
+  span.textContent = `${lang.flag} ${lang.name}`;
+
+  wrapper.appendChild(checkbox);
+  wrapper.appendChild(span);
+  langList.appendChild(wrapper);
+
+  // Native language dropdown
+  const opt = document.createElement("option");
+  opt.value = lang.code;
+  opt.textContent = `${lang.flag} ${lang.name}`;
+  nativeLangSelect.appendChild(opt);
+});
+
+// Load saved selections
+window.addEventListener("load", () => {
+  // Native language
+  const savedNative = localStorage.getItem("nativeLang");
+  if (savedNative) nativeLangSelect.value = savedNative;
+  else nativeLangSelect.value = "en";
+
+  // Selected target languages
+  const savedTargets = JSON.parse(localStorage.getItem("targetLangs") || "[]");
+  Array.from(langList.querySelectorAll("input[type='checkbox']")).forEach(cb => {
+    if (savedTargets.includes(cb.value)) cb.checked = true;
+  });
+  updateSelectedFlags();
+
+  // Levels
+  vocabLevel = parseInt(localStorage.getItem("vocabLevel") || "1", 10);
+  grammarLevel = parseInt(localStorage.getItem("grammarLevel") || "1", 10);
+  updateLevelBadges();
+
+  // Notebook
+  const savedNotebook = localStorage.getItem("learningNotebook");
+  if (savedNotebook) document.getElementById("notebookEntries").innerHTML = savedNotebook;
+});
+
+// Save native language on change
+nativeLangSelect.addEventListener("change", () => {
+  localStorage.setItem("nativeLang", nativeLangSelect.value);
+});
+
+// Update selected flags display
+function updateSelectedFlags() {
+  selectedFlags.innerHTML = "";
+  const selectedCodes = [];
+  Array.from(langList.querySelectorAll("input[type='checkbox']")).forEach(cb => {
+    if (cb.checked) selectedCodes.push(cb.value);
+  });
+
+  // Save selection
+  localStorage.setItem("targetLangs", JSON.stringify(selectedCodes));
+
+  selectedCodes.forEach(code => {
+    const lang = languageOptions.find(l => l.code === code);
+    if (!lang) return;
+    const chip = document.createElement("div");
+    chip.className = "flag-chip";
+    chip.textContent = `${lang.flag} ${lang.name}`;
+    selectedFlags.appendChild(chip);
+  });
+}
+
+// Level system
+let vocabLevel = 1;
+let grammarLevel = 1;
+
+function levelLabel(level) {
+  if (level <= 3) return "Beginner";
+  if (level <= 6) return "Elementary";
+  if (level <= 9) return "Intermediate";
+  if (level <= 12) return "Advanced";
+  return "Very Advanced";
+}
+
+function updateLevelBadges() {
+  const vocabBadge = document.getElementById("vocabLevelBadge");
+  const grammarBadge = document.getElementById("grammarLevelBadge");
+  vocabBadge.textContent = `Level ${vocabLevel} • ${levelLabel(vocabLevel)}`;
+  grammarBadge.textContent = `Level ${grammarLevel} • ${levelLabel(grammarLevel)}`;
+}
+
+function completeVocabDay() {
+  const notes = document.getElementById("vocabNotes").value.trim();
+  if (!notes) {
+    alert("Write something for vocabulary today before marking it as done.");
+    return;
+  }
+  vocabLevel++;
+  localStorage.setItem("vocabLevel", vocabLevel.toString());
+  updateLevelBadges();
+  document.getElementById("vocabNotes").value = "";
+}
+
+function completeGrammarDay() {
+  const notes = document.getElementById("grammarNotes").value.trim();
+  if (!notes) {
+    alert("Write something for grammar today before marking it as done.");
+    return;
+  }
+  grammarLevel++;
+  localStorage.setItem("grammarLevel", grammarLevel.toString());
+  updateLevelBadges();
+  document.getElementById("grammarNotes").value = "";
+}
+
+// Notebook
+function saveNotebookEntry() {
+  const input = document.getElementById("notebookInput");
+  const text = input.value.trim();
+  if (!text) return;
+
+  const entries = document.getElementById("notebookEntries");
+  const div = document.createElement("div");
+  div.textContent = "• " + text;
+  entries.appendChild(div);
+
+  localStorage.setItem("learningNotebook", entries.innerHTML);
+  input.value = "";
+}
+
+function clearNotebook() {
+  if (!confirm("Clear the entire notebook?")) return;
+  document.getElementById("notebookEntries").innerHTML = "";
+  localStorage.removeItem("learningNotebook");
+}
+</script>
+
+</body>
+</html>
