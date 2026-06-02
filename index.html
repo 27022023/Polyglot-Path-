@@ -14,57 +14,32 @@ html, body {
   height: 100%;
   overflow: hidden;
   font-family: "Poppins", sans-serif;
-  background: #cfe9ff; /* pastel blue behind flags */
+  background: #cfe9ff; /* pastel blue */
 }
 
-/* INFINITE FLAG WALLPAPER */
-.flag-wallpaper {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  font-size: 2.2rem;
-  line-height: 1;
-  display: flex;
-  flex-direction: column;
-  animation: scrollFlags 20s linear infinite;
-}
-
-/* One row of flags */
-.flag-row {
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-/* Infinite vertical scrolling */
-@keyframes scrollFlags {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-50%); }
-}
-
-/* CENTERED EARTH CIRCLE */
-.earth-circle {
-  width: 260px;
-  height: 260px;
-  background: #cfe9ff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* BIG EARTH EMOJI */
+.earth-emoji {
+  font-size: 10rem;
   position: absolute;
-  top: 40%;
+  top: 38%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 25px rgba(0,0,0,0.2);
 }
 
+/* TITLE ON TOP OF EARTH */
 .logo-title {
-  font-size: 2.2rem;
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.4rem;
   font-family: "Brush Script MT", cursive;
   color: #003b6f;
   text-align: center;
+  width: 100%;
 }
 
-/* MENU BUTTON — higher */
+/* MENU BUTTON */
 .menu-btn {
   position: absolute;
   top: 63%;
@@ -79,7 +54,7 @@ html, body {
   box-shadow: 0 0 12px rgba(0,0,0,0.2);
 }
 
-/* HIDDEN MENU */
+/* MENU PANEL */
 .menu-panel {
   position: absolute;
   top: 69%;
@@ -117,24 +92,16 @@ html, body {
 
 <body>
 
-<!-- INFINITE FLAG WALLPAPER -->
-<div class="flag-wallpaper">
+<!-- BIG EARTH EMOJI -->
+<div class="earth-emoji">🌍</div>
 
-  <!-- Only 2 rows needed — CSS repeats them infinitely -->
-  <div class="flag-row">🇺🇸🇬🇧🇫🇷🇩🇪🇪🇸🇮🇹🇵🇹🇧🇷🇨🇳🇯🇵🇰🇷🇷🇺🇸🇦🇮🇳🇬🇷🇹🇷🇲🇽🇨🇦🇦🇺🇳🇿🇳🇴🇸🇪🇩🇰🇫🇮🇵🇱🇳🇱🇧🇪🇨🇭🇦🇹🇨🇿🇭🇺🇷🇴🇧🇬🇷🇸🇭🇷🇸🇮🇸🇰🇺🇦🇮🇱🇪🇬🇿🇦🇦🇷🇨🇱🇵🇪🇨🇴🇻🇪🇹🇭🇻🇳🇮🇩🇵🇭🇲🇾🇸🇬🇰🇪🇳🇬🇵🇰🇧🇩🇮🇪🇮🇸🇱🇺🇱🇮🇲🇹🇲🇦🇹🇳🇶🇦🇦🇪🇯🇴</div>
-  <div class="flag-row">🇺🇸🇬🇧🇫🇷🇩🇪🇪🇸🇮🇹🇵🇹🇧🇷🇨🇳🇯🇵🇰🇷🇷🇺🇸🇦🇮🇳🇬🇷🇹🇷🇲🇽🇨🇦🇦🇺🇳🇿🇳🇴🇸🇪🇩🇰🇫🇮🇵🇱🇳🇱🇧🇪🇨🇭🇦🇹🇨🇿🇭🇺🇷🇴🇧🇬🇷🇸🇭🇷🇸🇮🇸🇰🇺🇦🇮🇱🇪🇬🇿🇦🇦🇷🇨🇱🇵🇪🇨🇴🇻🇪🇹🇭🇻🇳🇮🇩🇵🇭🇲🇾🇸🇬🇰🇪🇳🇬🇵🇰🇧🇩🇮🇪🇮🇸🇱🇺🇱🇮🇲🇹🇲🇦🇹🇳🇶🇦🇦🇪🇯🇴</div>
-
-</div>
-
-<!-- CENTERED TITLE -->
-<div class="earth-circle">
-  <h1 class="logo-title">Polyglot Path</h1>
-</div>
+<!-- TITLE -->
+<div class="logo-title">Polyglot Path</div>
 
 <!-- MENU BUTTON -->
 <button id="menuToggle" class="menu-btn">✈️ Menu</button>
 
-<!-- HIDDEN MENU -->
+<!-- MENU -->
 <nav id="mainMenu" class="menu-panel">
   <a href="translator.html" class="menu-link">🌐 Translator</a>
   <a href="learning.html" class="menu-link">📚 Learning Place</a>
@@ -153,5 +120,4 @@ menuToggle.addEventListener("click", () => {
 
 </body>
 </html>
-
- 
+    
