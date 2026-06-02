@@ -16,12 +16,20 @@ html, body {
   font-family: "Poppins", sans-serif;
 }
 
-/* FULL FLAG WALLPAPER — ALL FLAGS, NO WHITE SPACE */
-body {
-  background-image: url('https://flagcdn.com/256x192.png');
-  background-size: 180px 130px; /* tighter pattern */
-  background-repeat: repeat;
-  background-position: center;
+/* EMOJI FLAG WALLPAPER — NO WHITE SPACE */
+.flag-wallpaper {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  font-size: 2.2rem;
+  line-height: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.flag-row {
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 /* CENTERED EARTH CIRCLE */
@@ -50,7 +58,7 @@ body {
 /* MENU BUTTON — moved higher */
 .menu-btn {
   position: absolute;
-  top: 60%;
+  top: 63%;
   left: 50%;
   transform: translateX(-50%);
   padding: 12px 22px;
@@ -65,7 +73,7 @@ body {
 /* HIDDEN MENU */
 .menu-panel {
   position: absolute;
-  top: 67%;
+  top: 69%;
   left: 50%;
   transform: translateX(-50%);
   width: 70%;
@@ -99,6 +107,18 @@ body {
 </head>
 
 <body>
+
+<!-- EMOJI FLAG WALLPAPER -->
+<div class="flag-wallpaper">
+
+  <!-- COPY‑PASTED FLAG EMOJI ROWS (NO WHITE SPACE) -->
+  <div class="flag-row">🇺🇸🇬🇧🇫🇷🇩🇪🇪🇸🇮🇹🇵🇹🇧🇷🇨🇳🇯🇵🇰🇷🇷🇺🇸🇦🇮🇳🇬🇷🇹🇷🇲🇽🇨🇦🇦🇺🇳🇿🇳🇴🇸🇪🇩🇰🇫🇮🇵🇱🇳🇱🇧🇪🇨🇭🇦🇹🇨🇿🇭🇺🇷🇴🇧🇬🇷🇸🇭🇷🇸🇮🇸🇰🇺🇦🇮🇱🇪🇬🇿🇦🇦🇷🇨🇱🇵🇪🇨🇴🇻🇪🇹🇭🇻🇳🇮🇩🇵🇭🇲🇾🇸🇬🇰🇪🇳🇬🇵🇰🇧🇩🇮🇪🇮🇸🇱🇺🇱🇮🇲🇹🇲🇦🇹🇳🇶🇦🇦🇪🇯🇴</div>
+  <div class="flag-row">🇧🇷🇵🇹🇮🇹🇫🇷🇩🇪🇬🇧🇺🇸🇨🇦🇲🇽🇦🇷🇨🇱🇵🇪🇨🇴🇻🇪🇪🇸🇵🇱🇳🇱🇧🇪🇨🇭🇦🇹🇨🇿🇭🇺🇷🇴🇧🇬🇷🇸🇭🇷🇸🇮🇸🇰🇺🇦🇷🇺🇨🇳🇯🇵🇰🇷🇮🇳🇵🇰🇧🇩🇹🇭🇻🇳🇮🇩🇵🇭🇲🇾🇸🇬🇰🇪🇳🇬🇪🇬🇿🇦🇲🇦🇹🇳🇶🇦🇦🇪🇯🇴🇮🇱🇬🇷🇹🇷</div>
+  <div class="flag-row">🇯🇵🇨🇳🇰🇷🇹🇭🇻🇳🇮🇩🇵🇭🇲🇾🇸🇬🇮🇳🇵🇰🇧🇩🇰🇪🇳🇬🇪🇬🇿🇦🇲🇦🇹🇳🇶🇦🇦🇪🇯🇴🇮🇱🇺🇦🇷🇺🇷🇴🇧🇬🇷🇸🇭🇷🇸🇮🇸🇰🇵🇱🇳🇱🇧🇪🇨🇭🇦🇹🇨🇿🇭🇺🇬🇧🇺🇸🇫🇷🇩🇪🇪🇸🇮🇹🇵🇹🇧🇷🇦🇷</div>
+  <div class="flag-row">🇦🇺🇳🇿🇨🇦🇺🇸🇬🇧🇫🇷🇩🇪🇪🇸🇮🇹🇵🇹🇧🇷🇦🇷🇨🇱🇵🇪🇨🇴🇻🇪🇲🇽🇵🇱🇳🇱🇧🇪🇨🇭🇦🇹🇨🇿🇭🇺🇷🇴🇧🇬🇷🇸🇭🇷🇸🇮🇸🇰🇺🇦🇷🇺🇮🇱🇬🇷🇹🇷🇪🇬🇿🇦🇲🇦🇹🇳🇶🇦🇦🇪🇯🇴🇮🇳🇵🇰🇧🇩</div>
+  <div class="flag-row">🇺🇸🇬🇧🇫🇷🇩🇪🇪🇸🇮🇹🇵🇹🇧🇷🇨🇳🇯🇵🇰🇷🇷🇺🇸🇦🇮🇳🇬🇷🇹🇷🇲🇽🇨🇦🇦🇺🇳🇿🇳🇴🇸🇪🇩🇰🇫🇮🇵🇱🇳🇱🇧🇪🇨🇭🇦🇹🇨🇿🇭🇺🇷🇴🇧🇬🇷🇸🇭🇷🇸🇮🇸🇰🇺🇦🇮🇱🇪🇬🇿🇦🇦🇷🇨🇱🇵🇪🇨🇴🇻🇪🇹🇭🇻🇳🇮🇩🇵🇭🇲🇾🇸🇬🇰🇪🇳🇬🇵🇰🇧🇩🇮🇪🇮🇸🇱🇺🇱🇮🇲🇹🇲🇦🇹🇳🇶🇦🇦🇪🇯🇴</div>
+
+</div>
 
 <!-- CENTERED TITLE -->
 <div class="earth-circle">
