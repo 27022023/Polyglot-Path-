@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polyglot Path</title>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<!-- FLAG BACKGROUND -->
+<div class="flag-bg">
+  <div class="flag-row">🇺🇸 🇬🇧 🇫🇷 🇩🇪 🇪🇸 🇮🇹 🇵🇹 🇧🇷 🇨🇳 🇯🇵 🇰🇷 🇷🇺 🇸🇦 🇮🇳 🇬🇷 🇹🇷</div>
+  <div class="flag-row">🇲🇽 🇨🇦 🇦🇺 🇳🇿 🇳🇴 🇸🇪 🇩🇰 🇫🇮 🇵🇱 🇳🇱 🇧🇪 🇨🇭 🇦🇹 🇨🇿 🇭🇺 🇷🇴</div>
+  <div class="flag-row">🇧🇬 🇷🇸 🇭🇷 🇸🇮 🇸🇰 🇺🇦 🇮🇱 🇪🇬 🇿🇦 🇦🇷 🇨🇱 🇵🇪 🇨🇴 🇻🇪 🇹🇭 🇻🇳</div>
+  <div class="flag-row">🇮🇩 🇵🇭 🇲🇾 🇸🇬 🇰🇪 🇳🇬 🇵🇰 🇧🇩 🇮🇪 🇮🇸 🇱🇺 🇱🇮 🇲🇹 🇲🇦 🇹🇳 🇶🇦</div>
+</div>
+
+<div class="app-shell">
+
+  <!-- TITLE + MENU -->
+  <header class="hero">
+    <div class="earth-circle">
+      <h1 class="logo-title">Polyglot Path</h1>
+    </div>
+
+    <button id="menuToggle" class="menu-btn">✈️ Menu</button>
+  </header>
+
+  <!-- MENU PANEL -->
+  <nav id="mainMenu" class="menu-panel">
+    <a href="translator.html" class="menu-link">🌐 Translator</a>
+    <a href="learning.html" class="menu-link">📚 Learning Place</a>
+    <a href="checklist.html" class="menu-link">📆 Checklist</a>
+    <a href="quiz.html" class="menu-link">🧠 Quiz</a>
+  </nav>
+
+</div>
+
+<script>
+const menuToggle = document.getElementById("menuToggle");
+const mainMenu = document.getElementById("mainMenu");
+
+menuToggle.addEventListener("click", () => {
+  mainMenu.classList.toggle("open");
+});
+</script>
+
+</body>
+</html>
