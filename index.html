@@ -8,7 +8,7 @@
 <style>
 
 /* RESET */
-body, html {
+html, body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -16,25 +16,67 @@ body, html {
   font-family: "Poppins", sans-serif;
 }
 
-/* FULL FLAG BACKGROUND */
-.flag-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  display: grid;
-  grid-template-rows: repeat(12, 1fr);
-  grid-template-columns: repeat(6, 1fr);
-  font-size: 2.2rem;
-  line-height: 1;
+/* FULL FLAG WALLPAPER — NO WHITE SPACE EVER */
+body {
+  background-image:
+    url('https://flagcdn.com/w40/us.png'),
+    url('https://flagcdn.com/w40/gb.png'),
+    url('https://flagcdn.com/w40/fr.png'),
+    url('https://flagcdn.com/w40/de.png'),
+    url('https://flagcdn.com/w40/es.png'),
+    url('https://flagcdn.com/w40/it.png'),
+    url('https://flagcdn.com/w40/pt.png'),
+    url('https://flagcdn.com/w40/br.png'),
+    url('https://flagcdn.com/w40/cn.png'),
+    url('https://flagcdn.com/w40/jp.png'),
+    url('https://flagcdn.com/w40/kr.png'),
+    url('https://flagcdn.com/w40/ru.png'),
+    url('https://flagcdn.com/w40/in.png'),
+    url('https://flagcdn.com/w40/gr.png'),
+    url('https://flagcdn.com/w40/tr.png'),
+    url('https://flagcdn.com/w40/ca.png'),
+    url('https://flagcdn.com/w40/mx.png'),
+    url('https://flagcdn.com/w40/au.png'),
+    url('https://flagcdn.com/w40/nz.png'),
+    url('https://flagcdn.com/w40/se.png'),
+    url('https://flagcdn.com/w40/no.png'),
+    url('https://flagcdn.com/w40/fi.png'),
+    url('https://flagcdn.com/w40/pl.png'),
+    url('https://flagcdn.com/w40/nl.png'),
+    url('https://flagcdn.com/w40/be.png'),
+    url('https://flagcdn.com/w40/ch.png'),
+    url('https://flagcdn.com/w40/at.png'),
+    url('https://flagcdn.com/w40/cz.png'),
+    url('https://flagcdn.com/w40/hu.png'),
+    url('https://flagcdn.com/w40/ro.png'),
+    url('https://flagcdn.com/w40/bg.png'),
+    url('https://flagcdn.com/w40/rs.png'),
+    url('https://flagcdn.com/w40/hr.png'),
+    url('https://flagcdn.com/w40/si.png'),
+    url('https://flagcdn.com/w40/sk.png'),
+    url('https://flagcdn.com/w40/ua.png'),
+    url('https://flagcdn.com/w40/il.png'),
+    url('https://flagcdn.com/w40/eg.png'),
+    url('https://flagcdn.com/w40/za.png'),
+    url('https://flagcdn.com/w40/ar.png'),
+    url('https://flagcdn.com/w40/cl.png'),
+    url('https://flagcdn.com/w40/co.png'),
+    url('https://flagcdn.com/w40/pe.png'),
+    url('https://flagcdn.com/w40/th.png'),
+    url('https://flagcdn.com/w40/vn.png'),
+    url('https://flagcdn.com/w40/id.png'),
+    url('https://flagcdn.com/w40/ph.png'),
+    url('https://flagcdn.com/w40/my.png'),
+    url('https://flagcdn.com/w40/sg.png'),
+    url('https://flagcdn.com/w40/ng.png'),
+    url('https://flagcdn.com/w40/ke.png'),
+    url('https://flagcdn.com/w40/pk.png'),
+    url('https://flagcdn.com/w40/bd.png');
+  background-size: 80px 60px;
+  background-repeat: repeat;
 }
 
-.flag-bg div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* EARTH CIRCLE */
+/* CENTERED EARTH CIRCLE */
 .earth-circle {
   width: 260px;
   height: 260px;
@@ -43,36 +85,39 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
-  margin-top: 80px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.15);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  box-shadow: 0 0 25px rgba(0,0,0,0.2);
 }
 
 .logo-title {
-  font-size: 2rem;
-  font-weight: 600;
-  text-align: center;
+  font-size: 2.2rem;
   font-family: "Brush Script MT", cursive;
   color: #003b6f;
+  text-align: center;
 }
 
 /* MENU BUTTON */
 .menu-btn {
-  display: block;
-  margin: 25px auto 0 auto;
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translateX(-50%);
   padding: 12px 22px;
   font-size: 1.2rem;
   border-radius: 50px;
   border: none;
   background: white;
   cursor: pointer;
-  box-shadow: 0 0 12px rgba(0,0,0,0.15);
+  box-shadow: 0 0 12px rgba(0,0,0,0.2);
 }
 
-/* MENU PANEL (HIDDEN BY DEFAULT) */
+/* HIDDEN MENU */
 .menu-panel {
   position: absolute;
-  top: 100px;
+  top: 78%;
   left: 50%;
   transform: translateX(-50%);
   width: 70%;
@@ -84,7 +129,7 @@ body, html {
   display: none;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  box-shadow: 0 0 20px rgba(0,0,0,0.25);
 }
 
 .menu-panel.open {
@@ -100,31 +145,12 @@ body, html {
   font-size: 1.1rem;
   text-align: center;
   font-weight: 600;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 </style>
 </head>
 
 <body>
-
-<!-- FULL FLAG BACKGROUND (NO WHITE ANYWHERE) -->
-<div class="flag-bg">
-  <!-- 72 FLAG CELLS (6x12 grid) -->
-  <!-- I will fill them with a rotating list of world flags -->
-  <!-- This guarantees NO white space on ANY phone screen -->
-  <div>🇺🇸</div><div>🇬🇧</div><div>🇫🇷</div><div>🇩🇪</div><div>🇪🇸</div><div>🇮🇹</div>
-  <div>🇵🇹</div><div>🇧🇷</div><div>🇨🇳</div><div>🇯🇵</div><div>🇰🇷</div><div>🇷🇺</div>
-  <div>🇸🇦</div><div>🇮🇳</div><div>🇬🇷</div><div>🇹🇷</div><div>🇲🇽</div><div>🇨🇦</div>
-  <div>🇦🇺</div><div>🇳🇿</div><div>🇳🇴</div><div>🇸🇪</div><div>🇩🇰</div><div>🇫🇮</div>
-  <div>🇵🇱</div><div>🇳🇱</div><div>🇧🇪</div><div>🇨🇭</div><div>🇦🇹</div><div>🇨🇿</div>
-  <div>🇭🇺</div><div>🇷🇴</div><div>🇧🇬</div><div>🇷🇸</div><div>🇭🇷</div><div>🇸🇮</div>
-  <div>🇸🇰</div><div>🇺🇦</div><div>🇮🇱</div><div>🇪🇬</div><div>🇿🇦</div><div>🇦🇷</div>
-  <div>🇨🇱</div><div>🇵🇪</div><div>🇨🇴</div><div>🇻🇪</div><div>🇹🇭</div><div>🇻🇳</div>
-  <div>🇮🇩</div><div>🇵🇭</div><div>🇲🇾</div><div>🇸🇬</div><div>🇰🇪</div><div>🇳🇬</div>
-  <div>🇵🇰</div><div>🇧🇩</div><div>🇮🇪</div><div>🇮🇸</div><div>🇱🇺</div><div>🇱🇮</div>
-  <div>🇲🇹</div><div>🇲🇦</div><div>🇹🇳</div><div>🇶🇦</div><div>🇦🇪</div><div>🇯🇴</div>
-</div>
 
 <!-- CENTERED TITLE -->
 <div class="earth-circle">
@@ -153,3 +179,4 @@ menuToggle.addEventListener("click", () => {
 
 </body>
 </html>
+    
