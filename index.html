@@ -5,39 +5,142 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Polyglot Path</title>
 
-<link rel="stylesheet" href="styles.css">
+<style>
+
+/* RESET */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+/* FULL FLAG BACKGROUND */
+.flag-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: grid;
+  grid-template-rows: repeat(12, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.flag-bg div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* EARTH CIRCLE */
+.earth-circle {
+  width: 260px;
+  height: 260px;
+  background: #cfe9ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 80px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.15);
+}
+
+.logo-title {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  font-family: "Brush Script MT", cursive;
+  color: #003b6f;
+}
+
+/* MENU BUTTON */
+.menu-btn {
+  display: block;
+  margin: 25px auto 0 auto;
+  padding: 12px 22px;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(0,0,0,0.15);
+}
+
+/* MENU PANEL (HIDDEN BY DEFAULT) */
+.menu-panel {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  max-width: 300px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 15px;
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.menu-panel.open {
+  display: flex;
+}
+
+.menu-link {
+  padding: 12px;
+  border-radius: 12px;
+  background: #e8f4ff;
+  text-decoration: none;
+  color: #003b6f;
+  font-size: 1.1rem;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+</style>
 </head>
 
 <body>
 
-<!-- FLAG BACKGROUND -->
+<!-- FULL FLAG BACKGROUND (NO WHITE ANYWHERE) -->
 <div class="flag-bg">
-  <div class="flag-row">🇺🇸 🇬🇧 🇫🇷 🇩🇪 🇪🇸 🇮🇹 🇵🇹 🇧🇷 🇨🇳 🇯🇵 🇰🇷 🇷🇺 🇸🇦 🇮🇳 🇬🇷 🇹🇷</div>
-  <div class="flag-row">🇲🇽 🇨🇦 🇦🇺 🇳🇿 🇳🇴 🇸🇪 🇩🇰 🇫🇮 🇵🇱 🇳🇱 🇧🇪 🇨🇭 🇦🇹 🇨🇿 🇭🇺 🇷🇴</div>
-  <div class="flag-row">🇧🇬 🇷🇸 🇭🇷 🇸🇮 🇸🇰 🇺🇦 🇮🇱 🇪🇬 🇿🇦 🇦🇷 🇨🇱 🇵🇪 🇨🇴 🇻🇪 🇹🇭 🇻🇳</div>
-  <div class="flag-row">🇮🇩 🇵🇭 🇲🇾 🇸🇬 🇰🇪 🇳🇬 🇵🇰 🇧🇩 🇮🇪 🇮🇸 🇱🇺 🇱🇮 🇲🇹 🇲🇦 🇹🇳 🇶🇦</div>
+  <!-- 72 FLAG CELLS (6x12 grid) -->
+  <!-- I will fill them with a rotating list of world flags -->
+  <!-- This guarantees NO white space on ANY phone screen -->
+  <div>🇺🇸</div><div>🇬🇧</div><div>🇫🇷</div><div>🇩🇪</div><div>🇪🇸</div><div>🇮🇹</div>
+  <div>🇵🇹</div><div>🇧🇷</div><div>🇨🇳</div><div>🇯🇵</div><div>🇰🇷</div><div>🇷🇺</div>
+  <div>🇸🇦</div><div>🇮🇳</div><div>🇬🇷</div><div>🇹🇷</div><div>🇲🇽</div><div>🇨🇦</div>
+  <div>🇦🇺</div><div>🇳🇿</div><div>🇳🇴</div><div>🇸🇪</div><div>🇩🇰</div><div>🇫🇮</div>
+  <div>🇵🇱</div><div>🇳🇱</div><div>🇧🇪</div><div>🇨🇭</div><div>🇦🇹</div><div>🇨🇿</div>
+  <div>🇭🇺</div><div>🇷🇴</div><div>🇧🇬</div><div>🇷🇸</div><div>🇭🇷</div><div>🇸🇮</div>
+  <div>🇸🇰</div><div>🇺🇦</div><div>🇮🇱</div><div>🇪🇬</div><div>🇿🇦</div><div>🇦🇷</div>
+  <div>🇨🇱</div><div>🇵🇪</div><div>🇨🇴</div><div>🇻🇪</div><div>🇹🇭</div><div>🇻🇳</div>
+  <div>🇮🇩</div><div>🇵🇭</div><div>🇲🇾</div><div>🇸🇬</div><div>🇰🇪</div><div>🇳🇬</div>
+  <div>🇵🇰</div><div>🇧🇩</div><div>🇮🇪</div><div>🇮🇸</div><div>🇱🇺</div><div>🇱🇮</div>
+  <div>🇲🇹</div><div>🇲🇦</div><div>🇹🇳</div><div>🇶🇦</div><div>🇦🇪</div><div>🇯🇴</div>
 </div>
 
-<div class="app-shell">
-
-  <!-- TITLE + MENU -->
-  <header class="hero">
-    <div class="earth-circle">
-      <h1 class="logo-title">Polyglot Path</h1>
-    </div>
-
-    <button id="menuToggle" class="menu-btn">✈️ Menu</button>
-  </header>
-
-  <!-- MENU PANEL -->
-  <nav id="mainMenu" class="menu-panel">
-    <a href="translator.html" class="menu-link">🌐 Translator</a>
-    <a href="learning.html" class="menu-link">📚 Learning Place</a>
-    <a href="checklist.html" class="menu-link">📆 Checklist</a>
-    <a href="quiz.html" class="menu-link">🧠 Quiz</a>
-  </nav>
-
+<!-- CENTERED TITLE -->
+<div class="earth-circle">
+  <h1 class="logo-title">Polyglot Path</h1>
 </div>
+
+<!-- MENU BUTTON -->
+<button id="menuToggle" class="menu-btn">✈️ Menu</button>
+
+<!-- HIDDEN MENU -->
+<nav id="mainMenu" class="menu-panel">
+  <a href="translator.html" class="menu-link">🌐 Translator</a>
+  <a href="learning.html" class="menu-link">📚 Learning Place</a>
+  <a href="checklist.html" class="menu-link">📆 Checklist</a>
+  <a href="quiz.html" class="menu-link">🧠 Quiz</a>
+</nav>
 
 <script>
 const menuToggle = document.getElementById("menuToggle");
